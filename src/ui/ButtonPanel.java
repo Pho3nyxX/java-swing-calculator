@@ -1,9 +1,14 @@
 package ui;
 
 import javax.swing.*;
+import theme.CalculatorTheme;
+
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ButtonPanel extends JPanel {
+    public List<JButton> buttons = new ArrayList<>();
 
     public ButtonPanel() {
         setLayout(new GridBagLayout());
@@ -53,14 +58,27 @@ public class ButtonPanel extends JPanel {
     }
 
     private void addButton(String text, int x, int y, int width, int height, GridBagConstraints gbc) {
-
-        JButton button = new JButton(text);
-
         gbc.gridx = x;
         gbc.gridy = y;
         gbc.gridwidth = width;
         gbc.gridheight = height;
 
+        gbc.ipadx = 10;
+        gbc.ipady = 15;
+
+        RoundedButton button;
+
+        if (text.equals("=")) {
+            button = new RoundedButton(text, CalculatorTheme.equalsButton, CalculatorTheme.equalsButtonHover);
+            button.setForeground(Color.BLACK);
+        } else {
+            button = new RoundedButton(text);
+            button.setForeground(Color.BLACK);
+        }
+
+        button.setFont(new Font("Arial", Font.BOLD, 18));
+
+        buttons.add(button);
         add(button, gbc);
     }
 }
