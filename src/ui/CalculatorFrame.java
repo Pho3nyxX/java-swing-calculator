@@ -8,8 +8,9 @@ public class CalculatorFrame extends JFrame {
     private HistoryPanel historyPanel;
     private DisplayPanel displayPanel;
     private ButtonPanel buttonPanel;
-    
-    public CalculatorFrame(){
+    private JPanel topContainer;
+
+    public CalculatorFrame() {
         initializeFrame();
         initializePanels();
         layoutPanels();
@@ -17,7 +18,7 @@ public class CalculatorFrame extends JFrame {
         setVisible(true);
     }
 
-    private void initializeFrame(){
+    private void initializeFrame() {
         setTitle("Calculator");
         setSize(410, 700);
         setLayout(new BorderLayout());
@@ -25,17 +26,22 @@ public class CalculatorFrame extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void initializePanels(){
+    private void initializePanels() {
+        topContainer = new JPanel();
+        topContainer.setLayout(new BoxLayout(topContainer, BoxLayout.Y_AXIS));
+
         topPanel = new TopPanel();
         historyPanel = new HistoryPanel();
         displayPanel = new DisplayPanel();
-        buttonPanel = new ButtonPanel();
+        buttonPanel = new ButtonPanel();;
     }
 
-    private void layoutPanels(){
-        add(topPanel, BorderLayout.NORTH);
-        add(historyPanel, BorderLayout.WEST);
-        add(displayPanel, BorderLayout.CENTER);
+    private void layoutPanels() {
+        topContainer.add(topPanel);
+        topContainer.add(historyPanel);
+        topContainer.add(displayPanel);
+
+        add(topContainer, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 }

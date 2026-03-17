@@ -16,6 +16,7 @@ public class HistoryPanel extends JPanel {
         historyArea = new JTextArea();
         historyArea.setEditable(false);
         scrollPane = new JScrollPane(historyArea);
+        // historyArea.setBackground(Color.RED);
     }
 
     private void layoutComponents() {

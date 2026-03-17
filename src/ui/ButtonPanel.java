@@ -13,7 +13,7 @@ public class ButtonPanel extends JPanel {
     public ButtonPanel() {
         setLayout(new GridBagLayout());
         setLayout(new GridBagLayout());
-        setBackground(new Color(130, 130, 130));
+        setBackground(theme.CalculatorTheme.buttonPanelBackground);
         setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
         GridBagConstraints gbc = new GridBagConstraints();

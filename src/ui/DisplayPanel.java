@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DisplayPanel extends JPanel {
-    private JTextField displayField;
+    private JTextField display;
 
     public DisplayPanel() {
         initializeComponents();
@@ -12,13 +12,18 @@ public class DisplayPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        displayField = new JTextField();
-        displayField.setFont(new Font("Arial", Font.BOLD, 24));
-        displayField.setHorizontalAlignment(JTextField.RIGHT);
+        display = new JTextField();
+        display.setFont(new Font("Arial", Font.BOLD, 24));
+        display.setHorizontalAlignment(JTextField.LEFT);
+
+        display.setBackground(theme.CalculatorTheme.displayBackground);
+        display.setForeground(Color.WHITE);
+
+        display.setBorder(BorderFactory.createEmptyBorder());
     }
 
     private void layoutComponents() {
         setLayout(new BorderLayout());
-        add(displayField, BorderLayout.CENTER);
+        add(display, BorderLayout.CENTER);
     }
 }
