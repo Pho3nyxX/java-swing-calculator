@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HistoryPanel extends JPanel {
-    private JTextArea historyArea;
+    private JTextArea history;
     private JScrollPane scrollPane;
 
     public HistoryPanel() {
@@ -13,10 +13,23 @@ public class HistoryPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        historyArea = new JTextArea();
-        historyArea.setEditable(false);
-        scrollPane = new JScrollPane(historyArea);
-        // historyArea.setBackground(Color.RED);
+        history = new JTextArea();
+        history.setEditable(false);
+        scrollPane = new JScrollPane(history);
+
+        // ✅ REMOVE scrollpane border (this is the main fix)
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        // ✅ REMOVE viewport border (important)
+        scrollPane.setViewportBorder(null);
+        // ✅ OPTIONAL: remove scrollbar spacing feel
+        scrollPane.getVerticalScrollBar().setBorder(null);
+        scrollPane.getHorizontalScrollBar().setBorder(null);
+
+        history.setBackground(theme.CalculatorTheme.historyBackground);
+        history.setForeground(Color.WHITE);
+        history.setBorder(BorderFactory.createEmptyBorder());
+
+        setPreferredSize(new Dimension(0, 100));
     }
 
     private void layoutComponents() {

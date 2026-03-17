@@ -8,7 +8,7 @@ public class CalculatorFrame extends JFrame {
     private HistoryPanel historyPanel;
     private DisplayPanel displayPanel;
     private ButtonPanel buttonPanel;
-    private JPanel topContainer;
+    private JPanel centerContainer;
 
     public CalculatorFrame() {
         initializeFrame();
@@ -27,21 +27,21 @@ public class CalculatorFrame extends JFrame {
     }
 
     private void initializePanels() {
-        topContainer = new JPanel();
-        topContainer.setLayout(new BoxLayout(topContainer, BoxLayout.Y_AXIS));
+        centerContainer = new JPanel();
+        centerContainer.setLayout(new BorderLayout());
 
         topPanel = new TopPanel();
         historyPanel = new HistoryPanel();
         displayPanel = new DisplayPanel();
-        buttonPanel = new ButtonPanel();;
+        buttonPanel = new ButtonPanel();
     }
 
     private void layoutPanels() {
-        topContainer.add(topPanel);
-        topContainer.add(historyPanel);
-        topContainer.add(displayPanel);
+        centerContainer.add(historyPanel, BorderLayout.CENTER); 
+        centerContainer.add(displayPanel, BorderLayout.SOUTH);
 
-        add(topContainer, BorderLayout.CENTER);
+        add(topPanel, BorderLayout.NORTH); 
+        add(centerContainer, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 }
