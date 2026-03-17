@@ -12,7 +12,10 @@ public class CalculatorTheme {
     public static Color equalsButton = new Color(255, 120, 0);
     public static Color equalsButtonHover = new Color(255, 130, 50);
 
-    public static Color displayBackground = new Color(100, 100, 100);
+    public static Color displayBackground = new Color(80, 80, 80);
 
-    public static Color historyBackground = new Color(130, 130, 130); 
+    public static Color historyBackground = new Color(100, 100, 100);
+
+    public static Color topPanelButtonBackground = new Color(80, 80, 80); 
+    public static Color topPanelButtonHover = new Color(100, 100, 100); 
 }

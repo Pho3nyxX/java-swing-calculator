@@ -15,13 +15,10 @@ public class HistoryPanel extends JPanel {
     private void initializeComponents() {
         history = new JTextArea();
         history.setEditable(false);
-        scrollPane = new JScrollPane(history);
 
-        // ✅ REMOVE scrollpane border (this is the main fix)
+        scrollPane = new JScrollPane(history);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        // ✅ REMOVE viewport border (important)
         scrollPane.setViewportBorder(null);
-        // ✅ OPTIONAL: remove scrollbar spacing feel
         scrollPane.getVerticalScrollBar().setBorder(null);
         scrollPane.getHorizontalScrollBar().setBorder(null);
 

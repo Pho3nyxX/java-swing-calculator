@@ -1,11 +1,10 @@
 package ui;
 
 import javax.swing.*;
-import theme.CalculatorTheme;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import theme.CalculatorTheme;
 
 public class ButtonPanel extends JPanel {
     public List<JButton> buttons = new ArrayList<>();
