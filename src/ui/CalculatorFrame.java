@@ -19,7 +19,7 @@ public class CalculatorFrame extends JFrame {
     }
 
     private void initializeFrame() {
-        setTitle("Calculator");
+        setUndecorated(true);
         setSize(410, 700);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,7 +30,7 @@ public class CalculatorFrame extends JFrame {
         centerContainer = new JPanel();
         centerContainer.setLayout(new BorderLayout());
 
-        topPanel = new TopPanel();
+        topPanel = new TopPanel(this);
         historyPanel = new HistoryPanel();
         displayPanel = new DisplayPanel();
         buttonPanel = new ButtonPanel();
