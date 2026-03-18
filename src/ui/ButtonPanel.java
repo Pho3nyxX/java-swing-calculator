@@ -5,15 +5,18 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import theme.CalculatorTheme;
+import controller.ButtonController;
 
 public class ButtonPanel extends JPanel {
     public List<JButton> buttons = new ArrayList<>();
+    private ButtonController controller;
 
-    public ButtonPanel() {
-        setLayout(new GridBagLayout());
+    public ButtonPanel(DisplayPanel display) {
         setLayout(new GridBagLayout());
         setBackground(theme.CalculatorTheme.buttonPanelBackground);
         setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+
+        controller = new ButtonController(display);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -76,6 +79,8 @@ public class ButtonPanel extends JPanel {
         }
 
         button.setFont(new Font("Arial", Font.BOLD, 18));
+        
+        button.addActionListener(controller);
 
         buttons.add(button);
         add(button, gbc);

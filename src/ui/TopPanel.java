@@ -18,32 +18,32 @@ public class TopPanel extends JPanel {
     }
 
     private void addDragFunctionality(JFrame parentFrame) {
-    final Point[] initialClick = {null};
+        final Point[] initialClick = { null };
 
-    this.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mousePressed(java.awt.event.MouseEvent e) {
-            initialClick[0] = e.getPoint();
-        }
-    });
-
-    this.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(java.awt.event.MouseEvent e) {
-            if (initialClick[0] != null) {
-                int thisX = parentFrame.getLocation().x;
-                int thisY = parentFrame.getLocation().y;
-
-                int xMoved = e.getX() - initialClick[0].x;
-                int yMoved = e.getY() - initialClick[0].y;
-
-                int X = thisX + xMoved;
-                int Y = thisY + yMoved;
-                parentFrame.setLocation(X, Y);
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                initialClick[0] = e.getPoint();
             }
-        }
-    });
-}
+        });
+
+        this.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent e) {
+                if (initialClick[0] != null) {
+                    int thisX = parentFrame.getLocation().x;
+                    int thisY = parentFrame.getLocation().y;
+
+                    int xMoved = e.getX() - initialClick[0].x;
+                    int yMoved = e.getY() - initialClick[0].y;
+
+                    int X = thisX + xMoved;
+                    int Y = thisY + yMoved;
+                    parentFrame.setLocation(X, Y);
+                }
+            }
+        });
+    }
 
     private void initializeComponents(JFrame parentFrame) {
         modes = new String[] { "Basic", "Advanced", "Programming" };

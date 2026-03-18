@@ -28,4 +28,16 @@ public class DisplayPanel extends JPanel {
         setLayout(new BorderLayout());
         add(display, BorderLayout.CENTER);
     }
+
+    public void appendText(String text){
+        display.setText(display.getText() + text);
+    }
+
+    public void setText(String text){
+        display.setText(text);
+    }
+
+    public String getText(){
+        return display.getText();
+    }
 }

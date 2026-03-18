@@ -33,7 +33,7 @@ public class CalculatorFrame extends JFrame {
         topPanel = new TopPanel(this);
         historyPanel = new HistoryPanel();
         displayPanel = new DisplayPanel();
-        buttonPanel = new ButtonPanel();
+        buttonPanel = new ButtonPanel(displayPanel);
     }
 
     private void layoutPanels() {
