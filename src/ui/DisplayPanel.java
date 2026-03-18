@@ -18,7 +18,7 @@ public class DisplayPanel extends JPanel {
 
         display.setBackground(theme.CalculatorTheme.displayBackground);
         display.setForeground(Color.WHITE);
-        display.setBorder(BorderFactory.createEmptyBorder());
+        display.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
 
         setPreferredSize(new Dimension(0, 90));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 90));
