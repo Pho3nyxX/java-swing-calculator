@@ -22,9 +22,15 @@ public class ButtonController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String value = e.getActionCommand().trim();
 
-        if (isNumber(value) || value.equals(".")) {
+        if (isInputCharacter(value)) {
+            // display.appendText(value);
+            // isOperatorClicked = false;
+            if (isOperatorClicked) {
+                // display.setText("");
+                isOperatorClicked = false;
+            }
+
             display.appendText(value);
-            isOperatorClicked = false;
 
         } else if (value.equals("C")) {
             display.clear();
@@ -87,11 +93,19 @@ public class ButtonController implements ActionListener {
     }
 
     private boolean isNumber(String value) {
-        return value.matches("[0-9]");
+        return value.matches("[0-9]+");
     }
 
     private boolean isOperator(String value) {
         return value.matches("[+\\-*/÷×]");
+    }
+
+    private boolean isParenthesis(String value) {
+        return value.equals("(") || value.equals(")");
+    }
+
+    private boolean isInputCharacter(String value) {
+        return value.matches("[0-9.]+") || value.equals("(") || value.equals(")");
     }
 
     private double parseDisplayNumber() {
