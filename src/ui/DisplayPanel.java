@@ -33,6 +33,10 @@ public class DisplayPanel extends JPanel {
         display.setText(display.getText() + text);
     }
 
+    public void clear(){
+        display.setText("");
+    }
+
     public void setText(String text){
         display.setText(text);
     }
