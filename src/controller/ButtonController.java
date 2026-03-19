@@ -26,7 +26,13 @@ public class ButtonController implements ActionListener {
             display.appendText(value);
             isOperatorClicked = false;
 
-        } else if (value.equals("π")) {
+        } else if(value.equals("C")){
+            display.setText("");
+            firstNumber = 0;
+            currentOperator = "";
+            isOperatorClicked = false;
+
+        }else if (value.equals("π")) {
             if (!display.getText().isEmpty()
                     && Character.isDigit(display.getText().charAt(display.getText().length() - 1))) {
                 display.appendText("π");
