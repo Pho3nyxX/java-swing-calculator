@@ -14,6 +14,7 @@ public class HistoryPanel extends JPanel {
 
     private void initializeComponents() {
         history = new JTextArea();
+        history.setFont(new Font("Arial", Font.PLAIN, 24));
         history.setEditable(false);
 
         scrollPane = new JScrollPane(history);
