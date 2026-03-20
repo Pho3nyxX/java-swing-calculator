@@ -9,10 +9,25 @@ public class CalculatorEngine {
     }
 
     private String preprocess(String expr) {
-        return expr
+        expr = expr
                 .replace("×", "*")
                 .replace("÷", "/")
-                .replace("π", String.valueOf(Math.PI));
+                .replace("mod", "%");
+
+        expr = expr.replaceAll("(\\d)π", "$1*" + Math.PI);
+        expr = expr.replaceAll("π", String.valueOf(Math.PI));
+        expr = expr.replaceAll("(\\d)\\(", "$1*(");
+        expr = expr.replaceAll("\\)\\(", ")*(");
+        expr = expr.replaceAll("\\)(\\d)", ")*$1");
+
+        expr = expr.replaceAll("\\)²", ")^2");
+        expr = expr.replaceAll("(\\d+(\\.\\d+)?)²", "($1*$1)");
+        expr = expr.replaceAll("√(\\d+(\\.\\d+)?)", "($1^0.5)");
+        expr = expr.replaceAll("(\\d+(\\.\\d+)?)%", "($1/100)");
+
+        expr = expr.replaceAll("√\\(", "sqrt(");
+
+        return expr;
     }
 
     private double evaluateExpression(String expr) {
@@ -25,7 +40,12 @@ public class CalculatorEngine {
             if (currentChar == ' ')
                 continue;
 
-            if (Character.isDigit(currentChar) || currentChar == '.') {
+            if (i + 3 < expr.length() && expr.substring(i, i + 4).equals("sqrt")) {
+                operators.push('s');
+                i += 3;
+                continue;
+
+            } else if (Character.isDigit(currentChar) || currentChar == '.') {
                 StringBuilder num = new StringBuilder();
 
                 while (i < expr.length() &&
@@ -37,7 +57,7 @@ public class CalculatorEngine {
                 i--;
 
             } else if (currentChar == '(') {
-                operators.push(currentChar);
+                operators.push('(');
 
             } else if (currentChar == ')') {
                 while (operators.peek() != '(') {
@@ -47,6 +67,12 @@ public class CalculatorEngine {
                             numbers.pop()));
                 }
                 operators.pop();
+
+                if (!operators.isEmpty() && operators.peek() == 's') {
+                    double val = numbers.pop();
+                    numbers.push(Math.sqrt(val));
+                    operators.pop();
+                }
 
             } else if (isOperator(currentChar)) {
                 while (!operators.isEmpty() && precedence(operators.peek()) >= precedence(currentChar)) {
@@ -58,7 +84,6 @@ public class CalculatorEngine {
                 operators.push(currentChar);
             }
         }
-
         while (!operators.isEmpty()) {
             numbers.push(applyOperation(
                     operators.pop(),
@@ -69,14 +94,17 @@ public class CalculatorEngine {
     }
 
     private boolean isOperator(char currentChar) {
-        return currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/';
+        return currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/'
+                || currentChar == '^' || currentChar == '%';
     }
 
     private int precedence(char operator) {
         if (operator == '+' || operator == '-')
             return 1;
-        if (operator == '*' || operator == '/')
+        if (operator == '*' || operator == '/' || operator == '%')
             return 2;
+        if (operator == '^')
+            return 3;
         return 0;
     }
 
@@ -90,6 +118,10 @@ public class CalculatorEngine {
                 return leftOperand * rightOperand;
             case '/':
                 return rightOperand != 0 ? leftOperand / rightOperand : 0;
+            case '%':
+                return leftOperand % rightOperand;
+            case '^':
+                return Math.pow(leftOperand, rightOperand);
         }
         return 0;
     }

@@ -40,6 +40,9 @@ public class ButtonController implements ActionListener {
         } else if (value.equals("%")) {
             display.appendText("%");
 
+        } else if (value.equals("mod")) {
+            display.appendText(" mod ");
+            
         } else if (value.equals("=")) {
             try {
                 String expression = display.getText();
