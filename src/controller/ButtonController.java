@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import engine.CalculatorEngine;
 import ui.DisplayPanel;
+import ui.HistoryPanel;
 
 public class ButtonController implements ActionListener {
     private DisplayPanel display;
+    private HistoryPanel history;
     private CalculatorEngine engine;
 
-    public ButtonController(DisplayPanel display) {
+    public ButtonController(DisplayPanel display, HistoryPanel history) {
         this.display = display;
+        this.history = history;
         this.engine = new CalculatorEngine();
     }
 
@@ -41,8 +44,8 @@ public class ButtonController implements ActionListener {
                 text = text.substring(0, text.length() - 1);
             }
 
-            display.setText(text + value); 
-            
+            display.setText(text + value);
+
         } else if (value.equals("%")) {
             display.appendText("%");
 
@@ -53,7 +56,10 @@ public class ButtonController implements ActionListener {
             try {
                 String expression = display.getText();
                 double result = engine.evaluate(expression);
-                display.setText(formatResult(result));
+                String formatted = formatResult(result);
+
+                display.setText(formatted);
+                history.addEntry(expression + " = " + formatted);
 
             } catch (Exception ex) {
                 display.setText("Error");

@@ -33,4 +33,9 @@ public class HistoryPanel extends JPanel {
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
     }
+
+    public void addEntry(String entry) {
+        history.append(entry + "\n");
+        history.setCaretPosition(history.getDocument().getLength());
+    }
 }

@@ -36,7 +36,7 @@ public class CalculatorFrame extends JFrame {
         historyPanel = new HistoryPanel();
         displayPanel = new DisplayPanel();
 
-        ButtonController controller = new ButtonController(displayPanel);
+        ButtonController controller = new ButtonController(displayPanel, historyPanel);
 
         displayPanel.setController(controller);
 
