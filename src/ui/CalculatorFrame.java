@@ -2,6 +2,7 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
+import controller.ButtonController;
 
 public class CalculatorFrame extends JFrame {
     private TopPanel topPanel;
@@ -16,6 +17,7 @@ public class CalculatorFrame extends JFrame {
         layoutPanels();
 
         setVisible(true);
+        displayPanel.requestFocusForInput();
     }
 
     private void initializeFrame() {
@@ -33,14 +35,19 @@ public class CalculatorFrame extends JFrame {
         topPanel = new TopPanel(this);
         historyPanel = new HistoryPanel();
         displayPanel = new DisplayPanel();
-        buttonPanel = new ButtonPanel(displayPanel);
+
+        ButtonController controller = new ButtonController(displayPanel);
+
+        displayPanel.setController(controller);
+
+        buttonPanel = new ButtonPanel(displayPanel, controller);
     }
 
     private void layoutPanels() {
-        centerContainer.add(historyPanel, BorderLayout.CENTER); 
+        centerContainer.add(historyPanel, BorderLayout.CENTER);
         centerContainer.add(displayPanel, BorderLayout.SOUTH);
 
-        add(topPanel, BorderLayout.NORTH); 
+        add(topPanel, BorderLayout.NORTH);
         add(centerContainer, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }

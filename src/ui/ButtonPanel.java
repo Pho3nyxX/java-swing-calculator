@@ -11,12 +11,12 @@ public class ButtonPanel extends JPanel {
     public List<JButton> buttons = new ArrayList<>();
     private ButtonController controller;
 
-    public ButtonPanel(DisplayPanel display) {
+    public ButtonPanel(DisplayPanel display, ButtonController controller) {
+        this.controller = controller;
+
         setLayout(new GridBagLayout());
         setBackground(theme.CalculatorTheme.buttonPanelBackground);
         setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
-
-        controller = new ButtonController(display);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;

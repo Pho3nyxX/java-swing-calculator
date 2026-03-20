@@ -42,7 +42,7 @@ public class ButtonController implements ActionListener {
             }
 
             display.setText(text + value); 
-
+            
         } else if (value.equals("%")) {
             display.appendText("%");
 

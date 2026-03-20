@@ -2,9 +2,12 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import controller.ButtonController;
 
 public class DisplayPanel extends JPanel {
     private JTextField display;
+    private ButtonController controller;
 
     public DisplayPanel() {
         initializeComponents();
@@ -22,6 +25,21 @@ public class DisplayPanel extends JPanel {
 
         setPreferredSize(new Dimension(0, 90));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 90));
+
+        display.setFocusable(true);
+
+        display.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                e.consume(); 
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                handleKeyPress(e);
+            }
+        });
     }
 
     private void layoutComponents() {
@@ -29,19 +47,65 @@ public class DisplayPanel extends JPanel {
         add(display, BorderLayout.CENTER);
     }
 
-    public void appendText(String text){
-        display.setText(display.getText() + text);
+    private void handleKeyPress(KeyEvent e) {
+        if (controller == null)
+            return;
+
+        String value = null;
+        char keyChar = e.getKeyChar();
+        int keyCode = e.getKeyCode();
+
+        if (Character.isDigit(keyChar) || keyChar == '.') {
+            value = String.valueOf(keyChar);
+
+        } else if (keyChar == '+' || keyChar == '-' || keyChar == '*' || keyChar == '/') {
+            value = String.valueOf(keyChar);
+
+        } else if (keyChar == '(' || keyChar == ')') {
+            value = String.valueOf(keyChar);
+
+        } else if (keyChar == '%') {
+            value = "%";
+
+        } else if (keyCode == KeyEvent.VK_ENTER) {
+            value = "=";
+
+        } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
+            String text = getText();
+            if (!text.isEmpty()) {
+                setText(text.substring(0, text.length() - 1));
+            }
+            return;
+        }
+
+        if (value != null) {
+            controller.actionPerformed(
+                    new ActionEvent(display, ActionEvent.ACTION_PERFORMED, value));
+        }
     }
 
-    public void clear(){
+    public void appendText(String text) {
+        display.setText(display.getText() + text);
+        display.requestFocusInWindow();
+    }
+
+    public void requestFocusForInput() {
+        display.requestFocusInWindow();
+    }
+
+    public void clear() {
         display.setText("");
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         display.setText(text);
     }
 
-    public String getText(){
+    public String getText() {
         return display.getText();
+    }
+
+    public void setController(ButtonController controller) {
+        this.controller = controller;
     }
 }
