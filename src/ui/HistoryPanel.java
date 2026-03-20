@@ -24,7 +24,7 @@ public class HistoryPanel extends JPanel {
 
         history.setBackground(theme.CalculatorTheme.historyBackground);
         history.setForeground(Color.WHITE);
-        history.setBorder(BorderFactory.createEmptyBorder());
+        history.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
 
         setPreferredSize(new Dimension(0, 100));
     }
