@@ -48,8 +48,7 @@ public class CalculatorEngine {
             } else if (Character.isDigit(currentChar) || currentChar == '.') {
                 StringBuilder num = new StringBuilder();
 
-                while (i < expr.length() &&
-                        (Character.isDigit(expr.charAt(i)) || expr.charAt(i) == '.')) {
+                while (i < expr.length() && (Character.isDigit(expr.charAt(i)) || expr.charAt(i) == '.')) {
                     num.append(expr.charAt(i));
                     i++;
                 }

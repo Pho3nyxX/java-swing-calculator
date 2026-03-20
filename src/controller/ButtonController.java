@@ -35,14 +35,20 @@ public class ButtonController implements ActionListener {
             display.appendText("√");
 
         } else if (isOperator(value)) {
-            display.appendText(value);
+            String text = display.getText();
+
+            if (!text.isEmpty() && isOperator(text.charAt(text.length() - 1))) {
+                text = text.substring(0, text.length() - 1);
+            }
+
+            display.setText(text + value); 
 
         } else if (value.equals("%")) {
             display.appendText("%");
 
         } else if (value.equals("mod")) {
             display.appendText(" mod ");
-            
+
         } else if (value.equals("=")) {
             try {
                 String expression = display.getText();
@@ -57,6 +63,11 @@ public class ButtonController implements ActionListener {
 
     private boolean isOperator(String value) {
         return value.matches("[+\\-*/÷×]");
+    }
+
+    private boolean isOperator(char currentChar) {
+        return currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/'
+                || currentChar == '×' || currentChar == '÷' || currentChar == '%';
     }
 
     private boolean isInputCharacter(String value) {
