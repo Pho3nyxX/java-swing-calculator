@@ -80,16 +80,16 @@ public class CalculatorEngine {
         return 0;
     }
 
-    private double applyOperation(char operator, double b, double a) {
+    private double applyOperation(char operator, double rightOperand, double leftOperand) {
         switch (operator) {
             case '+':
-                return a + b;
+                return leftOperand + rightOperand;
             case '-':
-                return a - b;
+                return leftOperand - rightOperand;
             case '*':
-                return a * b;
+                return leftOperand * rightOperand;
             case '/':
-                return b != 0 ? a / b : 0;
+                return rightOperand != 0 ? leftOperand / rightOperand : 0;
         }
         return 0;
     }
