@@ -59,7 +59,7 @@ public class ButtonController implements ActionListener {
                 String formatted = formatResult(result);
 
                 display.setText(formatted);
-                history.addEntry(expression + " = " + formatted);
+                history.addEntry(expression, formatted);
 
             } catch (Exception ex) {
                 display.setText("Error");

@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HistoryPanel extends JPanel {
-    private JTextArea history;
+    private JPanel history;
+    private JPanel historyWrapper;
     private JScrollPane scrollPane;
 
     public HistoryPanel() {
@@ -13,30 +14,78 @@ public class HistoryPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        history = new JTextArea();
-        history.setFont(new Font("Arial", Font.PLAIN, 24));
-        history.setEditable(false);
+        history = new JPanel();
+        history.setLayout(new BoxLayout(history, BoxLayout.Y_AXIS));
+        history.setOpaque(false);
 
-        scrollPane = new JScrollPane(history);
+        historyWrapper = new JPanel(new BorderLayout());
+        historyWrapper.setBackground(theme.CalculatorTheme.historyBackground);
+        historyWrapper.add(history, BorderLayout.SOUTH);
+
+        scrollPane = new JScrollPane(historyWrapper);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setViewportBorder(null);
-        scrollPane.getVerticalScrollBar().setBorder(null);
-        scrollPane.getHorizontalScrollBar().setBorder(null);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getViewport().setBackground(theme.CalculatorTheme.historyBackground);
 
-        history.setBackground(theme.CalculatorTheme.historyBackground);
-        history.setForeground(Color.WHITE);
-        history.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
-
-        setPreferredSize(new Dimension(0, 100));
+        JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
+        verticalBar.setUI(new CustomScrollBar(theme.CalculatorTheme.historyHover));
+        verticalBar.setPreferredSize(new Dimension(6, Integer.MAX_VALUE));
+        verticalBar.setUnitIncrement(16);
     }
 
     private void layoutComponents() {
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
+        setPreferredSize(new Dimension(0, 100));
     }
 
-    public void addEntry(String entry) {
-        history.append(entry + "\n");
-        history.setCaretPosition(history.getDocument().getLength());
+    public void addEntry(String expression, String result) {
+        JPanel entryPanel = new JPanel(new BorderLayout());
+        entryPanel.setOpaque(true);
+        entryPanel.setBackground(theme.CalculatorTheme.historyBackground);
+        entryPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.GRAY));
+
+        JLabel leftLabel = new JLabel(expression);
+        leftLabel.setForeground(Color.WHITE);
+        leftLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        leftLabel.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 0));
+
+        JLabel centerLabel = new JLabel("=");
+        centerLabel.setForeground(Color.WHITE);
+        centerLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        centerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        centerLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+
+        JLabel rightLabel = new JLabel(result);
+        rightLabel.setForeground(Color.WHITE);
+        rightLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        rightLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        rightLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 15));
+
+        entryPanel.add(leftLabel, BorderLayout.WEST);
+        entryPanel.add(centerLabel, BorderLayout.CENTER);
+        entryPanel.add(rightLabel, BorderLayout.EAST);
+
+        Color normalColor = theme.CalculatorTheme.historyBackground;
+        Color hoverColor = theme.CalculatorTheme.historyHover;
+
+        entryPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                entryPanel.setBackground(hoverColor);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                entryPanel.setBackground(normalColor);
+            }
+        });
+
+        history.add(entryPanel, history.getComponentCount() - 1);
+        history.revalidate();
+        history.repaint();
+
+        SwingUtilities.invokeLater(
+                () -> scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum()));
     }
 }
