@@ -17,9 +17,10 @@ public class HistoryPanel extends JPanel {
         history = new JPanel();
         history.setLayout(new BoxLayout(history, BoxLayout.Y_AXIS));
         history.setOpaque(false);
-
+        
         historyWrapper = new JPanel(new BorderLayout());
         historyWrapper.setBackground(theme.CalculatorTheme.historyBackground);
+        history.add(Box.createVerticalGlue());
         historyWrapper.add(history, BorderLayout.SOUTH);
 
         scrollPane = new JScrollPane(historyWrapper);
@@ -29,8 +30,13 @@ public class HistoryPanel extends JPanel {
 
         JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
         verticalBar.setUI(new CustomScrollBar(theme.CalculatorTheme.historyHover));
-        verticalBar.setPreferredSize(new Dimension(6, Integer.MAX_VALUE));
-        verticalBar.setUnitIncrement(16);
+        verticalBar.setPreferredSize(new Dimension(6, 0));
+        verticalBar.setUnitIncrement(30);
+        verticalBar.setBlockIncrement(80);
+
+        SwingUtilities.invokeLater(() -> {
+            verticalBar.setValue(verticalBar.getMaximum());
+        });
     }
 
     private void layoutComponents() {
@@ -84,8 +90,15 @@ public class HistoryPanel extends JPanel {
         history.add(entryPanel, history.getComponentCount() - 1);
         history.revalidate();
         history.repaint();
+    }
 
-        SwingUtilities.invokeLater(
-                () -> scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum()));
+    @Override
+    public void addNotify() {
+        super.addNotify();
+
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+            scrollBar.setValue(scrollBar.getMaximum());
+        });
     }
 }
