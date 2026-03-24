@@ -3,6 +3,10 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 import controller.ButtonController;
+import ui.panels.ButtonPanel;
+import ui.panels.DisplayPanel;
+import ui.panels.HistoryPanel;
+import ui.panels.TopPanel;
 
 public class CalculatorFrame extends JFrame {
     private TopPanel topPanel;

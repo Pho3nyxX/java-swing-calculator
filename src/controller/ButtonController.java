@@ -3,8 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import engine.CalculatorEngine;
-import ui.DisplayPanel;
-import ui.HistoryPanel;
+import ui.panels.DisplayPanel;
+import ui.panels.HistoryPanel;
 
 public class ButtonController implements ActionListener {
     private DisplayPanel display;

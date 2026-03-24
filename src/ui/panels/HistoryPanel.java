@@ -1,6 +1,9 @@
-package ui;
+package ui.panels;
 
 import javax.swing.*;
+
+import ui.components.CustomScrollBar;
+
 import java.awt.*;
 
 public class HistoryPanel extends JPanel {

@@ -1,10 +1,11 @@
-package ui;
+package ui.panels;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import theme.CalculatorTheme;
+import ui.buttons.RoundedButton;
 import controller.ButtonController;
 
 public class ButtonPanel extends JPanel {

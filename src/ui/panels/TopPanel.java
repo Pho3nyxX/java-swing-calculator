@@ -1,6 +1,9 @@
-package ui;
+package ui.panels;
 
 import javax.swing.*;
+
+import ui.buttons.CircleButton;
+
 import java.awt.*;
 
 public class TopPanel extends JPanel {
