@@ -7,6 +7,7 @@ public class HistoryPanel extends JPanel {
     private JPanel history;
     private JPanel historyWrapper;
     private JScrollPane scrollPane;
+    private static final Font HISTORY_FONT = new Font("Arial", Font.PLAIN, 24);
 
     public HistoryPanel() {
         initializeComponents();
@@ -17,7 +18,7 @@ public class HistoryPanel extends JPanel {
         history = new JPanel();
         history.setLayout(new BoxLayout(history, BoxLayout.Y_AXIS));
         history.setOpaque(false);
-        
+
         historyWrapper = new JPanel(new BorderLayout());
         historyWrapper.setBackground(theme.CalculatorTheme.historyBackground);
         history.add(Box.createVerticalGlue());
@@ -45,26 +46,25 @@ public class HistoryPanel extends JPanel {
         setPreferredSize(new Dimension(0, 100));
     }
 
-    public void addEntry(String expression, String result) {
+    private JPanel createEntry(String expression, String result) {
         JPanel entryPanel = new JPanel(new BorderLayout());
         entryPanel.setOpaque(true);
         entryPanel.setBackground(theme.CalculatorTheme.historyBackground);
         entryPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.GRAY));
 
         JLabel leftLabel = new JLabel(expression);
-        leftLabel.setForeground(Color.WHITE);
-        leftLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        JLabel centerLabel = new JLabel("=");
+        JLabel rightLabel = new JLabel(result);
+
+        styleLabel(leftLabel);
+        styleLabel(centerLabel);
+        styleLabel(rightLabel);
+
         leftLabel.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 0));
 
-        JLabel centerLabel = new JLabel("=");
-        centerLabel.setForeground(Color.WHITE);
-        centerLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         centerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         centerLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
-        JLabel rightLabel = new JLabel(result);
-        rightLabel.setForeground(Color.WHITE);
-        rightLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         rightLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         rightLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 15));
 
@@ -72,22 +72,35 @@ public class HistoryPanel extends JPanel {
         entryPanel.add(centerLabel, BorderLayout.CENTER);
         entryPanel.add(rightLabel, BorderLayout.EAST);
 
+        addHoverEffect(entryPanel);
+
+        return entryPanel;
+    }
+
+    private void styleLabel(JLabel label) {
+        label.setForeground(Color.WHITE);
+        label.setFont(HISTORY_FONT);
+    }
+
+    private void addHoverEffect(JPanel panel) {
         Color normalColor = theme.CalculatorTheme.historyBackground;
         Color hoverColor = theme.CalculatorTheme.historyHover;
 
-        entryPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                entryPanel.setBackground(hoverColor);
+                panel.setBackground(hoverColor);
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                entryPanel.setBackground(normalColor);
+                panel.setBackground(normalColor);
             }
         });
+    }
 
-        history.add(entryPanel, history.getComponentCount() - 1);
+    public void addEntry(String expression, String result) {
+        history.add(createEntry(expression, result), history.getComponentCount() - 1);
         history.revalidate();
         history.repaint();
     }
