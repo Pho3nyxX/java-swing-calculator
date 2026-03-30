@@ -9,8 +9,8 @@ public class CalculatorTheme {
     public static Color buttonHover = new Color(180, 180, 180);
     public static Color buttonPanelBackground = new Color(50, 50, 50);
 
-    public static Color equalsButton = new Color(255, 120, 0);
-    public static Color equalsButtonHover = new Color(255, 130, 50);
+    public static Color equalsButton = new Color(100, 169, 40);
+    public static Color equalsButtonHover = new Color(118, 193, 58);
 
     public static Color displayBackground = new Color(80, 80, 80);
 
