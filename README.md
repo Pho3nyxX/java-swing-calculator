@@ -4,7 +4,6 @@ This calculator is built with Java Swing. It has a clean UI, history tracking, a
 
 ![Java Swing Calculator](./src/images/calc.png)
 
----
 
 ## Features
 
@@ -14,7 +13,6 @@ This calculator is built with Java Swing. It has a clean UI, history tracking, a
 - **Keyboard Support**: Numeric input, operators, Enter (=), Backspace.
 - **Draggable Window**: Undecorated frame with minimize, maximize, and close buttons.
 
---- 
 
 ## Getting Started
 
