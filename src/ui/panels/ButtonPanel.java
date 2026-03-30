@@ -74,13 +74,22 @@ public class ButtonPanel extends JPanel {
         if (text.equals("=")) {
             button = new RoundedButton(text, CalculatorTheme.equalsButton, CalculatorTheme.equalsButtonHover);
             button.setForeground(Color.BLACK);
+
+        } else if ("C()modπ÷√×x²- .%+".contains(text)) {
+            button = new RoundedButton(text, CalculatorTheme.displayBackground, CalculatorTheme.displayButtonHover);
+            button.setForeground(Color.WHITE);
+
+        } else if ("0123456789".contains(text)) {
+            button = new RoundedButton(text, CalculatorTheme.historyBackground, CalculatorTheme.historyHover);
+            button.setForeground(Color.WHITE);
+            
         } else {
-            button = new RoundedButton(text);
+            button = new RoundedButton(text, CalculatorTheme.historyBackground, CalculatorTheme.historyHover);
             button.setForeground(Color.BLACK);
         }
 
         button.setFont(new Font("Arial", Font.BOLD, 18));
-        
+
         button.addActionListener(controller);
 
         buttons.add(button);
