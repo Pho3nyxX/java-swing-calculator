@@ -2,9 +2,6 @@
 
 This calculator is built with Java Swing. It has a clean UI, history tracking, and custom buttons. Currently supports Basic mode, with Advanced and Programming modes planned.
 
-![Java Swing Calculator](./src/images/calc.png)
-
-
 ## Features
 
 - **Basic Arithmetic**: +, -, ×, ÷, %, parentheses, π, square, square root.
